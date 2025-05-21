@@ -93,4 +93,6 @@ gosweeper.exe
 | mine   | Number of mines     |
 | x      | Width of the field  |
 | y      | Height of the field |
+| diff   | Set Difficulty      |
+|        | easy, medium, hard  |
 | s      | Self-solve speed    |

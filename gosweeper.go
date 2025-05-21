@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"strings" //for auto lowercasing diff
 	"github.com/gdamore/tcell/v2"
 	"log"
 )
@@ -10,13 +11,32 @@ func main() {
 	mines := flag.Int("mine", 10, "Number of mines")
 	y := flag.Int("y", 5, "Height of the field")
 	x := flag.Int("x", 5, "Width of the field")
+	diff := flag.String("diff", "" , "Set Difficulty of the Game") //added difficulty tag
 	flag.Parse()
 
-	GameLoop(*x, *y, *mines)
+	GameLoop(*x, *y, *mines, *diff)
 }
 
 // [[ Game loop ]] {{{1
-func GameLoop(x, y, mines int) {
+func GameLoop(x, y, mines int, diff string) {
+	//Assign different number of mines, x, y depending on difficulty
+	diff = strings.ToLower(diff) // auto lowercasing
+	if diff != " "{
+		if diff == "easy" {
+			mines = 10;
+			x = 8;
+			y = 8;
+		} else if diff == "medium" {
+			mines = 40;
+			x = 16;
+			y = 16;
+		} else if diff == "hard" {
+			mines = 99;
+			x = 30;
+			y = 16;
+		} 
+	}
+
 	// [[ Initial Boilerplate ]] {{{2
 	// Initialize Field
 	game, err := Initialize(x, y, mines)
